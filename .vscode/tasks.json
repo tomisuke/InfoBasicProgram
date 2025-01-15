@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Processing Sketch", // わかりやすい名前を付ける
+      "command": "C:\\Program Files\\processing-4.3.1\\processing-java.exe", // ここのパスはご自身の環境に合わせてください,
+      "type": "process",
+      "args": [
+        "--force",
+        "--sketch=${fileDirname}", // スケッチのフォルダまで指定する。ファイルは指定しない。
+        "--run"
+      ],
+      "group": {
+        "kind": "build", // Ctrl+Shift+Bで実行したい(=楽したい)のでbuildにする
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always", // 画面表示を常に行う
+        "panel": "new" // 新しいterminalで実行する
+      }
+    }
+  ]
+}

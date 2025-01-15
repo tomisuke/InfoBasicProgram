@@ -1,0 +1,72 @@
+import processing.serial.*;
+
+Serial serialPort; // Arduinoにデータを送るシリアルポート
+Serial port;
+boolean firstContact = false;  //Arduinoからのはじめの送信を確認する
+
+byte[] inByte = new byte[3]; // 受信データ用バッファ
+
+int oval1, oval2;
+int unlock = 20;
+int lock = 125;
+int ballx = 0;
+int bally = 0;
+int ballPos = 0;
+boolean serial = false;//serial通信しない場合false
+boolean m5 = true;
+
+void setup() {
+  size(1920, 1200);
+  if (serial) {
+    String portName = Serial.list()[0]; // 使用するシリアルポート名
+    println(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
+    serialPort = new Serial(this, portName, 9600);
+    serialPort.buffer(inByte.length); // 読み込むバッファの長さをの指定
+  }
+  if (m5) {
+    port =new Serial(this, "COM7", 4800);//M5StickC Plus2がない場合､この行を無効化
+  }
+  oval1 = unlock;
+  oval2 = unlock;
+  //sendServo(1, oval1);
+  //sendServo(2, oval2);
+}
+
+void draw() {
+  translate(0, height);
+  scale(1, -1);
+  background(0);
+  drawRoad();
+  if (ballPos > 0) {
+    ballPos--;
+  }
+  ballx = ballxPosition(ballPos);
+  bally = ballyPosition(ballPos);
+  circle(ballx, bally, 50);
+  //println(ballPos);
+}
+// シリアルポートにデータが受信されると呼び出されるメソッド
+void serialEvent(Serial port) {
+  /*
+  inByte = port.readBytes();
+  if (firstContact == false) {
+    if (inByte[0] == 'C') { // Arduinoとの接続確認
+      port.clear();
+      firstContact = true;
+      sendServo(1, 70);
+    }
+  }
+  */
+  // シリアルポートからデータを受け取ったら
+  if (port.available() >= 1) {
+    String data = port.readStringUntil('\n');
+    if (data == null) {
+      return;
+    }
+    data = data.trim();
+    if (int(data) == 1) {
+      println(1);
+      accel();
+    }
+  }
+}
