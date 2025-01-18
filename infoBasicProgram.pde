@@ -25,14 +25,12 @@ int ballPos = 0;
 int traffic = 0;
 int fragTraffic = 0;
 int fragBall = 0;
-int flagPause = 0;
-int patPos = 0;
-int status = 0;
-boolean isPatocar = false;
+i
 
 boolean serial = true;//サーボ無効の場合false
 boolean m5 = true;//m5stack無効の場合false
 PImage patocar;
+
 PApplet self;
 void setup() {
   PFont font = createFont("Meiryo", 50);

@@ -1,10 +1,11 @@
 int clearTime = 0;
 boolean clearFlag = false;
 void gameDraw() {
-  background(255);
+  background(#cee6c1);
   textSize(27);
   translate(0, height);
   scale(1, -1);
+  decoration();
   drawRoad();
   if (ballPos > 150 && millis()-fragBall >= 500) {
     Ani.to(self, 1/60, "ballPos", ballPos-1);

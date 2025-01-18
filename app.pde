@@ -1,4 +1,19 @@
 // キー入力
+void mousePressed() {
+  switch(mouseButton) {
+  case LEFT:
+    scene = 1;
+    Ani.to(self, 1, "ballPos", 150);
+    println("ani");
+    break;
+  case RIGHT:
+    lock();
+    break;
+  case CENTER:
+    unlock();
+    break;
+  }
+}
 void keyPressed() {
   switch(key) {
   case 'e':
